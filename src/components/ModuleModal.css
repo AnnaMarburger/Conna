@@ -1,0 +1,32 @@
+.bubble-modal {
+    --background: #e8e6e6 !important;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 6px;
+    --box-shadow: none;
+}
+
+.modal-content {
+  --padding-start: var(--spacing-large);
+  --padding-end: var(--spacing-large);
+  --padding-top: var(--spacing-standard);
+  --padding-bottom: var(--spacing-standard);
+}
+
+.time-picker-row {
+  display: flex;
+  align-items: center; 
+  gap: 0.5rem;        
+}
+
+.bottom-button {
+  --background: var(--color-accent);
+  position: absolute;
+  bottom: var(--spacing-large);
+  left: var(--spacing-large);
+  right: var(--spacing-large);
+}

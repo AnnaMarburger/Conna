@@ -1,0 +1,12 @@
+
+.notification-card {
+  --background: var(--color-background-light);
+  border-radius: 16px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  margin: 0px;
+  margin-bottom: var(--spacing-mediumsmall);
+}
+
+.notification-card ion-card-content {
+  padding: var(--spacing-mediumsmall);
+}

@@ -1,0 +1,189 @@
+:root {
+    /* ──────────────── Colors ──────────────── */
+
+    --color-text-primary: #3a3a3c;
+    --color-text-secondary: #7a7474;
+    --color-accent: #8BAEBF;
+    --color-background-light: #FFFFFF;
+    --color-background-shade: #F8F8F8;
+
+    --ion-background-color: var(--color-background-shade);
+
+
+    /* ──────────────── Font ──────────────── */
+    --font-header: 28px;
+    --font-section-header: 16px;
+    --font-label: 14px;
+    --font-small: 12px;
+
+    --spacing-small: 12px;
+    --spacing-mediumsmall: 20px;
+    --spacing-standard: 28px;
+    --spacing-large: 38px;
+    --spacing-top: 58px;
+
+    --font-family-base: 'SF Pro Rounded', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    --ion-text-color: var(--color-text-primary);
+
+
+    /* ──────────────── Desktop Variables ──────────────── */
+
+
+    @media (min-width: 768px) {
+        --font-header: 32px;
+        --font-section-header: 18px;
+        --font-label: 15px;
+        --font-small: 13px;
+
+        --spacing-standard: 52px;
+        --spacing-large: 78px;
+        --spacing-top: 38px;
+
+    }
+}
+
+/* ──────────────── Text Utility Classes ──────────────── */
+
+.text-header {
+    font-family: var(--font-family-base) !important;
+    font-size: var(--font-header) !important;
+    font-weight: 700 !important;
+    color: var(--color-text-primary);
+}
+
+.text-section {
+    font-family: var(--font-family-base) !important;
+    font-size: var(--font-section-header) !important;
+    font-weight: 700 !important;
+    color: var(--color-text-primary) !important;
+}
+
+.text-label {
+    font-family: var(--font-family-base) !important;
+    font-size: var(--font-label) !important;
+    font-weight: 500 !important;
+    color: var(--color-text-primary) !important;
+}
+
+
+.text-small {
+    font-family: var(--font-family-base) !important;
+    font-size: var(--font-small) !important;
+    font-weight: 500 !important;
+    color: var(--color-text-primary) !important;
+
+}
+
+.text-icon {
+    font-family: var(--font-family-base) !important;
+    font-size: var(--font-header) !important;
+    font-weight: 300 !important;
+    color: var(--color-text-primary);
+}
+
+.text-secondary {
+    color: var(--color-text-secondary) !important;
+}
+
+.text-light {
+    color: var(--color-background-light) !important;
+}
+
+/* ──────────────── Spacing Utility Classes ──────────────── */
+
+.no-margin {
+    margin: 0px !important;
+}
+
+.m-standard {
+    margin: var(--spacing-standard) !important;
+}
+
+.mt-xl {
+    margin-top: var(--spacing-top) !important;
+}
+
+.mt-standard {
+    margin-top: var(--spacing-standard) !important;
+}
+
+.mt-large {
+    margin-top: var(--spacing-large) !important;
+}
+
+.mt-small {
+    margin-top: var(--spacing-small) !important;
+}
+
+.mb-small {
+    margin-bottom: var(--spacing-small) !important;
+}
+
+.mb-mediumsmall {
+    margin-bottom: var(--spacing-mediumsmall) !important;
+}
+
+.mb-standard {
+    margin-bottom: var(--spacing-standard) !important;
+}
+
+.sectioncard-padding {
+    padding: 0px;
+    padding-top: 8px;
+}
+
+.p-standard {
+    padding: var(--spacing-standard) !important;
+}
+
+.pl-small {
+    padding-left: var(--spacing-small) !important;
+}
+
+/* ──────────────── Customizing Ionic Classes ──────────────── */
+
+ion-tab-bar {
+    --background: var(--color-background-light);
+    --color: var(--color-text-secondary);
+    --color-selected: var(--color-accent);
+    --border-color: transparent;
+    border-top: 1px solid var(--color-background-shade);
+}
+
+ion-tab-button {
+    --color: var(--color-text-secondary);
+    --color-selected: var(--color-accent);
+    font-family: var(--font-family-base);
+    font-weight: 500;
+}
+
+ion-toolbar {
+    --min-height: 0;
+    --padding-top: 0;
+    --padding-bottom: 0;
+    --background: transparent;
+    height: auto;
+}
+
+ion-modal {
+  --height: 70%;
+  --width: 90%;
+  --border-radius: 16px;
+  --box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+}
+
+ion-modal::part(backdrop) {
+  background: rgb(34, 35, 35);
+  opacity: 1;
+}
+
+ion-popover.select-popover::part(content) {
+  border-radius: 16px;
+  background-color: var(--color-background-light);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+}
+
+ion-select-popover ion-item.item-radio-checked::part(native) {
+  background-color:var(--color-background-light);
+}
+

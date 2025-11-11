@@ -1,0 +1,33 @@
+.room-card {
+  width: 100%;
+  height: 120px;
+  border-radius: 16px;
+  box-shadow: none;
+  --background: var(--color-background-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin: 0px;
+  padding: 0px;
+}
+
+.room-card-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+}
+
+.add-icon {
+  font-size: 2rem;
+  color: var(--color-text-primary);
+  margin-bottom: 0.25rem;
+}
+
+@media (min-width: 768px) {
+  .room-card {
+    height: 150px;
+  }
+}

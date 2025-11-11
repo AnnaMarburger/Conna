@@ -1,0 +1,49 @@
+.module-bubbles-card {
+    border-radius: 16px;
+    box-shadow: none;
+    padding: 0px;
+}
+
+.bubble {
+    --background: var(--color-background-light);
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 16px;
+    margin-bottom: 16px;
+    --box-shadow: none;
+}
+
+
+@media (min-width: 768px) {
+    .bubble {
+        width: 70px;
+        height: 70px;
+        margin-right: 12px;
+    }
+}
+
+
+.bubble.add {
+    --background: var(--color-accent);
+}
+
+.bubble-add-icon {
+    font-size: 30px !important;
+    stroke-width: 4px;
+}
+
+.popover-content {
+    padding-top: var(--spacing-small);
+    padding-left: var(--spacing-standard);
+    padding-right: var(--spacing-standard);
+    padding-bottom: var(--spacing-standard);
+
+}
+
+.popover-content ion-button{
+    --background: var(--color-accent) !important;
+}
