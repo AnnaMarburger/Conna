@@ -122,7 +122,7 @@ const ModuleModal: React.FC<ModuleModalProps> = ({ isOpen, moduleData, onDidDism
 
         <IonSelect className="text-label" interface="popover" label={"THEN "} value={
           moduleDataUpdate.rule?.output === "Signal" ? "Signal" : "Speech"}
-          onIonChange={(e) =>
+          onIonChange={(e) => 
             setModuleDataUpdate((prev) =>
               prev
                 ? {
@@ -130,9 +130,7 @@ const ModuleModal: React.FC<ModuleModalProps> = ({ isOpen, moduleData, onDidDism
                   rule: {
                     ...(prev.rule ?? {}),
                     output:
-                      e.detail.value === "Signal"
-                        ? "Signal"
-                        : prev.rule?.output ?? "",
+                      e.detail.value === "Signal" ? "Signal" : "",
                   },
                 }
                 : prev
