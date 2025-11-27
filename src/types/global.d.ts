@@ -11,7 +11,7 @@ declare global {
         id: string;
         icon: string;
         name: string;
-        type?: string;
+        type: string;
         room?: string;
         rule?: Rule;
         lastState?: string;

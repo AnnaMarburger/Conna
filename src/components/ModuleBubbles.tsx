@@ -21,6 +21,7 @@ const ModuleBubbles: React.FC = () => {
             id: newModuleId.trim(),
             icon: "👋",
             name: "New Module",
+            type: newModuleId.split("_")[0]
         };
 
         addModule(newMod);

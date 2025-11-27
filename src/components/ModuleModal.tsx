@@ -1,4 +1,4 @@
-import { IonModal, IonContent, IonItem, IonButton, IonLabel, IonInput, IonSelect, IonSelectOption, IonPicker, IonPickerColumn, IonPickerColumnOption, IonDatetimeButton, IonDatetime } from "@ionic/react";
+import { IonModal, IonContent, IonItem, IonButton, IonLabel, IonInput, IonSelect, IonSelectOption, IonDatetimeButton, IonDatetime } from "@ionic/react";
 import { useEffect, useState } from "react";
 import { useData } from "../context/DataContext";
 import EmojiPicker, { EmojiClickData } from "emoji-picker-react";
@@ -94,15 +94,15 @@ const ModuleModal: React.FC<ModuleModalProps> = ({ isOpen, moduleData, onDidDism
             }))
           }
         >
-          <IonSelectOption value={"Open"} className="text-label">OPEN</IonSelectOption>
-          <IonSelectOption value={"Closed"} className="text-label">CLOSED</IonSelectOption>
+          <IonSelectOption value={"Open"} className="text-label">{moduleDataUpdate.type == "gyro" ? "ON" : "OPEN"}</IonSelectOption>
+          <IonSelectOption value={"Closed"} className="text-label">{moduleDataUpdate.type == "gyro" ? "OFF" : "CLOSED"}</IonSelectOption>
         </IonSelect>
 
         <div className="time-picker-row">
           <p className="text-label">For </p>
           <IonDatetimeButton datetime="datetime"></IonDatetimeButton>
           <IonModal keepContentsMounted={true}>
-            <IonDatetime id="datetime" presentation="time" minuteValues="0, 5, 10, 15, 30, 45" size="fixed"
+            <IonDatetime id="datetime" presentation="time" minuteValues="0, 1, 5, 10, 15, 30, 45" size="fixed"
               formatOptions={{ time: { hour: '2-digit', minute: '2-digit' } }}
               value={
                 moduleDataUpdate.rule?.time

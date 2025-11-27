@@ -24,97 +24,6 @@ const DataContext = createContext<DataContextType>({
 });
 
 
-/* ---------------DUMMY DATA ----------------------------------*/
-const ROOMS: Room[] = [{ name: "Bathroom", modulesCount: 4 },
-{ name: "Bedroom", modulesCount: 2 },
-{ name: "Living Room", modulesCount: 3 },
-{ name: "Kitchen", modulesCount: 5 },
-{ name: "Corridor", modulesCount: 1 }];
-
-const MODULES: Module[] = [
-    {
-        id: "82374gduh1", icon: "🚪",
-        name: 'Door Module',
-        rule: {
-            state: "Open",
-            time: "13:12",
-            output: "Signal"
-        },
-        room: 'Corridor'
-    },
-    {
-        id: "ch183gr6", icon: "🪟",
-        name: 'Window Bedroom',
-        rule: {
-            state: "Closed",
-            time: "10:11",
-            output: "Signal"
-        }, room: 'Bedroom'
-
-    },
-    {
-        id: "d19384zrhd1", icon: "🛁",
-        name: 'Air Bathroom',
-        rule: {
-            state: "Open",
-            time: "04:12",
-            output: "Signal"
-        }, room: 'Bathroom'
-
-    },
-    {
-        id: "d1h3d4gr1", icon: "🍲",
-        name: 'Kitchen Stove',
-        rule: {
-            state: "Open",
-            time: "09:32",
-            output: "Signal"
-        }, room: 'Kitchen'
-
-    },
-    {
-        id: "j128347rgif1", icon: "💡",
-        name: 'Bedroom Light',
-        rule: {
-            state: "Closed",
-            time: "13:12",
-            output: "Signal"
-        }, room: 'Bedroom'
-
-    },
-];
-
-const NOTIFS: ModuleNotif[] = [{
-    module_id: "window_livingroom",
-    module_name: "Window Bedroom",
-    text: "Das Wohnzimmerfenster war seit über 2 Stunden geschlossen. Zeit zum Lüften!",
-    time: "2025-11-06T08:15:00Z"
-},
-{
-    module_id: "cabinet_kitchen",
-    module_name: "Kitchen Cabinet",
-    text: "Schrank in der Küche war seit 3 Tagen nicht geöffnet. Denk daran, das Ablaufdatum zu prüfen.",
-    time: "2025-11-06T09:45:00Z"
-},
-{
-    module_id: "bathroom_sensor",
-    module_name: "Air Bathroom",
-    text: "Luftfeuchtigkeit im Bad ist seit 30 Minuten hoch. Fenster öffnen empfohlen.",
-    time: "2025-11-06T10:20:00Z"
-},
-{
-    module_id: "fridge_sensor",
-    module_name: "Kitchen Fridge",
-    text: "Low Battery - charge the module soon",
-    time: "2025-11-06T11:00:00Z"
-},
-{
-    module_id: "light_bedroom",
-    module_name: "Bedroom light",
-    text: "Das Schlafzimmerlicht ist seit Mitternacht an. Möchtest du es ausschalten?",
-    time: "2025-11-06T11:30:00Z"
-}]
-
 
 
 export const DataProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -144,10 +53,6 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({ children
         } catch (err) {
             console.error("Fehler beim Laden:", err);
             if (err instanceof Response) console.log(await err.text());
-            setModules(MODULES);
-            setNotifications(NOTIFS);
-            setRooms(ROOMS);
-            setLoading(false);
         } finally {
             setLoading(false);
         }
@@ -181,7 +86,6 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({ children
             body: JSON.stringify(newMod),
         });
         const saved = await res.json();
-
         console.log("Added Module in Data Context", saved);
     };
 
@@ -192,8 +96,8 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
         const res = await fetch(`${API_BASE_URL}/api/rooms`, {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(newRoomName),
+            headers: { "Content-Type": "text/plain" },
+            body: newRoomName,
         });
 
         const saved = await res.json();
