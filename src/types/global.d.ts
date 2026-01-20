@@ -12,6 +12,7 @@ declare global {
         icon: string;
         name: string;
         type: string;
+        nightMode: "sleep" | "awake";
         room?: string;
         rule?: Rule;
         lastState?: string;

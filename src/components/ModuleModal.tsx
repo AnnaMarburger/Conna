@@ -1,4 +1,4 @@
-import { IonModal, IonContent, IonItem, IonButton, IonLabel, IonInput, IonSelect, IonSelectOption, IonDatetimeButton, IonDatetime } from "@ionic/react";
+import { IonModal, IonContent, IonItem, IonButton, IonLabel, IonInput, IonSelect, IonSelectOption, IonDatetimeButton, IonDatetime, IonToggle, ToggleCustomEvent } from "@ionic/react";
 import { useEffect, useState } from "react";
 import { useData } from "../context/DataContext";
 import EmojiPicker, { EmojiClickData } from "emoji-picker-react";
@@ -44,6 +44,11 @@ const ModuleModal: React.FC<ModuleModalProps> = ({ isOpen, moduleData, onDidDism
       if (!prev) return prev;
       return updater(prev);
     });
+  };
+
+  const handleNightmodeToggle = (event: ToggleCustomEvent<{ checked: boolean }>) => {
+    const nightmode = event.detail.checked ? "awake" : "sleep";
+    updateModule((prev) => ({ ...prev, nightMode: nightmode }));
   };
 
 
@@ -111,7 +116,8 @@ const ModuleModal: React.FC<ModuleModalProps> = ({ isOpen, moduleData, onDidDism
               onIonChange={(e) => {
                 const iso = e.detail.value as string | null;
                 const timeOnly = iso ? iso.split("T")[1].slice(0, 5) : "";
-                updateModule((prev) => ({ ...prev,
+                updateModule((prev) => ({
+                  ...prev,
                   rule: { ...(prev.rule ?? {}), time: timeOnly },
                 }));
               }}
@@ -122,7 +128,7 @@ const ModuleModal: React.FC<ModuleModalProps> = ({ isOpen, moduleData, onDidDism
 
         <IonSelect className="text-label" interface="popover" label={"THEN "} value={
           moduleDataUpdate.rule?.output === "Signal" ? "Signal" : "Speech"}
-          onIonChange={(e) => 
+          onIonChange={(e) =>
             setModuleDataUpdate((prev) =>
               prev
                 ? {
@@ -154,6 +160,10 @@ const ModuleModal: React.FC<ModuleModalProps> = ({ isOpen, moduleData, onDidDism
             }
           />
         )}
+
+        <p className="text-section mt-standard">Nightmode Option</p>
+        <IonToggle labelPlacement="start" checked={moduleDataUpdate.nightMode == "awake"} onIonChange={(e) => handleNightmodeToggle(e)}>Allow Alarms between 22:00-8:00: </IonToggle>
+
 
         <IonButton className="bottom-button" expand="block" onClick={handleSave}>
           Save

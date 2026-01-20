@@ -21,7 +21,8 @@ const ModuleBubbles: React.FC = () => {
             id: newModuleId.trim(),
             icon: "👋",
             name: "New Module",
-            type: newModuleId.split("_")[0]
+            type: newModuleId.split("_")[0],
+            nightMode: "awake"
         };
 
         addModule(newMod);
@@ -35,7 +36,14 @@ const ModuleBubbles: React.FC = () => {
     }
 
     if (loading) {
-        return <p className="text-label">Loading…</p>;
+        return (
+        <IonCard className="module-bubbles-card ion-no-margin mt-standard" >
+            <IonCardContent className="sectioncard-padding">
+                <p className="text-section">Your Modules</p>
+
+                <p className="text-label">Loading…</p>;
+            </IonCardContent>
+        </IonCard>)
     }
 
 
@@ -54,7 +62,7 @@ const ModuleBubbles: React.FC = () => {
                             <IonPopover isOpen={showPopover} onDidDismiss={() => setShowPopover(false)} className="select-popover p-standard" >
                                 <div className="popover-content">
                                     <p className="text-section mb-small">Enter Module ID:</p>
-                                    <IonInput 
+                                    <IonInput
                                         value={newModuleId}
                                         placeholder="e.g. ESP001"
                                         onIonChange={(e) => setNewModuleId(e.detail.value!)}

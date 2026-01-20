@@ -9,7 +9,13 @@ const NotifSection: React.FC = () => {
 
 
     if (loading) {
-        return <p className="text-label">Loading…</p>;
+        return (
+        <IonCard className="module-bubbles-card ion-no-margin mt-standard" >
+            <IonCardContent className="sectioncard-padding ">
+                    <p className="text-section">Your Modules</p>
+                    <p className="text-label">Loading…</p>;
+                </IonCardContent>
+            </IonCard>)
     }
 
     return (
