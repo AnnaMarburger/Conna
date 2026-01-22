@@ -12,7 +12,7 @@ const NotifSection: React.FC = () => {
         return (
         <IonCard className="module-bubbles-card ion-no-margin mt-standard" >
             <IonCardContent className="sectioncard-padding ">
-                    <p className="text-section">Your Modules</p>
+                    <p className="text-section">Last Notifications</p>
                     <p className="text-label">Loading…</p>;
                 </IonCardContent>
             </IonCard>)

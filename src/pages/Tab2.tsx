@@ -29,14 +29,19 @@ const Tab2: React.FC = () => {
   };
 
 
-  if (loading) return <p className="text-label">Loading…</p>;
-
+  if (loading) return (
+    <IonPage className='m-standard'>
+      <IonContent fullscreen>
+        <p className='text-section mt-large mb-standard'> Your Rooms </p>
+        <p className="text-label">Loading…</p>
+      </IonContent>
+    </IonPage>
+  )
 
   return (
     <IonPage className='m-standard'>
       <IonContent fullscreen>
         <p className='text-section mt-large mb-standard'> Your Rooms </p>
-
         <div className="rooms-grid">
           <RoomCard isAddCard onClick={handleNewRoomButton} />
           <IonPopover isOpen={showPopover} onDidDismiss={() => setShowPopover(false)} className="select-popover p-standard" >
