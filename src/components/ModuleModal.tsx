@@ -1,6 +1,7 @@
-import { IonModal, IonContent, IonItem, IonButton, IonLabel, IonInput, IonSelect, IonSelectOption, IonDatetimeButton, IonDatetime, IonToggle, ToggleCustomEvent } from "@ionic/react";
+import { IonModal, IonContent, IonItem, IonButton, IonLabel, IonInput, IonSelect, IonSelectOption, IonDatetimeButton, IonDatetime, IonToggle, ToggleCustomEvent, IonTextarea, IonIcon } from "@ionic/react";
 import { useEffect, useState } from "react";
 import { useData } from "../context/DataContext";
+import { trashBin } from 'ionicons/icons';
 import EmojiPicker, { EmojiClickData } from "emoji-picker-react";
 
 import "./ModuleModal.css";
@@ -9,10 +10,11 @@ interface ModuleModalProps {
   isOpen: boolean;
   onDidDismiss: () => void;
   onSave: (updatedModule: Module) => void;
+  onDelete: (id: String) => void;
   moduleData: Module | null;
 }
 
-const ModuleModal: React.FC<ModuleModalProps> = ({ isOpen, moduleData, onDidDismiss, onSave }) => {
+const ModuleModal: React.FC<ModuleModalProps> = ({ isOpen, moduleData, onDidDismiss, onSave, onDelete }) => {
   const { rooms, loading } = useData();
   const [moduleDataUpdate, setModuleDataUpdate] = useState<Module | null>(null);
   const [showPicker, setShowPicker] = useState(false);
@@ -38,6 +40,11 @@ const ModuleModal: React.FC<ModuleModalProps> = ({ isOpen, moduleData, onDidDism
     }
     onDidDismiss();
   };
+
+  const handleDelete = (id: String) => {
+    onDelete(id);
+    onDidDismiss();
+  }
 
   const updateModule = (updater: (prev: Module) => Module) => {
     setModuleDataUpdate((prev) => {
@@ -68,18 +75,15 @@ const ModuleModal: React.FC<ModuleModalProps> = ({ isOpen, moduleData, onDidDism
             />
             <p className="text-small text-secondary">{moduleDataUpdate.id}</p>
           </IonLabel>
+          <IonButton className="delete-modal" shape="round" onClick={() => handleDelete(moduleDataUpdate.id)}>
+            <IonIcon icon={trashBin} size="large" color="danger"/>
+          </IonButton>
+
 
           <IonModal isOpen={showPicker} onDidDismiss={() => setShowPicker(false)} >
             <EmojiPicker onEmojiClick={handleEmojiClick} width="100%" height="350px" />
           </IonModal>
         </IonItem>
-
-        <p className="text-small">
-          {moduleDataUpdate.lastState
-            ? `Last State: ${moduleDataUpdate.lastState}` : "No last State given | "}
-          {moduleDataUpdate.lastUpdate
-            ? `Last Update: ${moduleDataUpdate.lastUpdate}` : "No last Update given"}
-        </p>
 
         <IonSelect className="text-label" label="Room: " interface="popover" value={moduleDataUpdate.room}
           onIonChange={(e) => updateModule((prev) => ({ ...prev, room: e.detail.value! }))}
@@ -107,7 +111,7 @@ const ModuleModal: React.FC<ModuleModalProps> = ({ isOpen, moduleData, onDidDism
           <p className="text-label">For </p>
           <IonDatetimeButton datetime="datetime"></IonDatetimeButton>
           <IonModal keepContentsMounted={true}>
-            <IonDatetime id="datetime" presentation="time" minuteValues="0, 1, 5, 10, 15, 30, 45" size="fixed"
+            <IonDatetime id="datetime" presentation="time" minuteValues="1, 5, 10, 15, 30, 45" size="fixed"
               formatOptions={{ time: { hour: '2-digit', minute: '2-digit' } }}
               value={
                 moduleDataUpdate.rule?.time
@@ -147,7 +151,7 @@ const ModuleModal: React.FC<ModuleModalProps> = ({ isOpen, moduleData, onDidDism
         </IonSelect>
 
         {moduleDataUpdate.rule?.output !== "Signal" && (
-          <IonInput fill="outline" className="text-label no-margin" placeholder="Enter your Text..." value={moduleDataUpdate.rule?.output}
+          <IonTextarea fill="outline" className="text-label no-margin" placeholder="Enter your Text..." value={moduleDataUpdate.rule?.output}
             onIonChange={(e) =>
               setModuleDataUpdate((prev) =>
                 prev
@@ -162,7 +166,7 @@ const ModuleModal: React.FC<ModuleModalProps> = ({ isOpen, moduleData, onDidDism
         )}
 
         <p className="text-section mt-standard">Nightmode Option</p>
-        <IonToggle labelPlacement="start" checked={moduleDataUpdate.nightMode == "awake"} onIonChange={(e) => handleNightmodeToggle(e)}>Allow Alarms between 22:00-8:00: </IonToggle>
+        <IonToggle labelPlacement="start" checked={moduleDataUpdate.nightMode == "awake"} onIonChange={(e) => handleNightmodeToggle(e)}>Alarms between 22:00-8:00: </IonToggle>
 
 
         <IonButton className="bottom-button" expand="block" onClick={handleSave}>

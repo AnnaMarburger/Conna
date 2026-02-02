@@ -166,10 +166,17 @@ ion-toolbar {
 }
 
 ion-modal {
-  --height: 90add .%;
-  --width: 70%;
+  --height: 95%;
+  --width: 90%;
   --border-radius: 16px;
   --box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+}
+
+@media (min-width: 968px) {
+  ion-modal {
+    --height: 90%;
+    --width: 50%;
+  }
 }
 
 ion-modal::part(backdrop) {

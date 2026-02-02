@@ -10,6 +10,12 @@
   --box-shadow: none;
 }
 
+.delete-modal {
+  --background:transparent !important;
+  margin-right: 0px !important;
+  --box-shadow: none;
+}
+
 .modal-content {
   --padding-start: var(--spacing-large);
   --padding-end: var(--spacing-large);

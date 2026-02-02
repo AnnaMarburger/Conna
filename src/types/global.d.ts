@@ -15,8 +15,6 @@ declare global {
         nightMode: "sleep" | "awake";
         room?: string;
         rule?: Rule;
-        lastState?: string;
-        lastUpdate?: string;
 
     }
 

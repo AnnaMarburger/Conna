@@ -10,8 +10,8 @@ const NotifSection: React.FC = () => {
 
     if (loading) {
         return (
-        <IonCard className="module-bubbles-card ion-no-margin mt-standard" >
-            <IonCardContent className="sectioncard-padding ">
+            <IonCard className="module-bubbles-card ion-no-margin mt-standard" >
+                <IonCardContent className="sectioncard-padding ">
                     <p className="text-section">Last Notifications</p>
                     <p className="text-label">Loading…</p>;
                 </IonCardContent>
@@ -22,13 +22,16 @@ const NotifSection: React.FC = () => {
         <IonCard className="module-bubbles-card ion-no-margin mt-standard" >
             <IonCardContent className="sectioncard-padding ">
                 <p className="text-section mb-mediumsmall">Last Notifications</p>
-                {notifications.map((n, index) => (
+                {notifications.reverse().map((n, index) => (
                     <IonCard key={index} className="notification-card">
                         <IonCardContent>
-                            <p className="text-label">
-                                <strong>{n.module_name}</strong>{": "}
-                                <span className="text-label text-secondary">{n.text}</span>
+                            <p className="text-label" style={{ display: "flex", justifyContent: "space-between" }}>
+                                <strong>{n.module_name}</strong>
+                                <span className="text-label text-secondary">
+                                    {new Date(n.time).toLocaleString()}
+                                </span>
                             </p>
+                            <p className="text-label text-secondary">{n.text}</p>
                         </IonCardContent>
                     </IonCard>
                 ))}

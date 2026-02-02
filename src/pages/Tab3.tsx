@@ -6,7 +6,7 @@ const Tab3: React.FC = () => {
   return (
     <IonPage className='m-standard'>
       <IonContent fullscreen>
-        <p className='text-section mt-large mb-standard'> Settings </p>
+        <p className='text-section mb-standard'> Settings </p>
 
       </IonContent>
     </IonPage>

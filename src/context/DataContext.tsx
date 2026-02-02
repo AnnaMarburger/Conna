@@ -9,6 +9,7 @@ type DataContextType = {
     updateModule: (updated: Module) => Promise<void>;
     addModule: (added: Module) => Promise<void>;
     addRoom: (name: string) => Promise<void>;
+    deleteModule: (id: String) => Promise<void>;
 
 }
 
@@ -21,6 +22,7 @@ const DataContext = createContext<DataContextType>({
     updateModule: async () => { },
     addModule: async () => { },
     addRoom: async () => { },
+    deleteModule: async () => { }
 });
 
 
@@ -70,7 +72,7 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({ children
                 body: JSON.stringify(updated),
             });
 
-            console.log("Updated in Data Context", res);
+            console.log("Updated in Data Context", updated, res);
 
         } catch (err) {
             console.error("Fehler beim Aktualisieren:", err);
@@ -85,8 +87,20 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({ children
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(newMod),
         });
-        const saved = await res.json();
-        console.log("Added Module in Data Context", saved);
+        console.log("Added Module in Data Context", newMod, res);
+    };
+
+    const deleteModule = async (id: String) => {    
+        const idx = modules.findIndex((mod) => mod.id === id);
+        if (idx === -1) return;
+        setModules((prev) => prev.filter((mod) => mod.id !== id));
+
+        const res = await fetch(`${API_BASE_URL}/api/modules`, {
+            method: "DELETE",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(id),
+        });
+        console.log("Deleted Module in Data Context", id, res);
     };
 
 
@@ -100,8 +114,7 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({ children
             body: newRoomName,
         });
 
-        const saved = await res.json();
-        console.log("Added Room in Data Context", saved);
+        console.log("Added Room in Data Context", rooms, res);
     };
 
     useEffect(() => {
@@ -109,7 +122,7 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }, []);
 
     return (
-        <DataContext.Provider value={{ modules, notifications, rooms, loading, reloadData: loadData, updateModule, addModule, addRoom }}>
+        <DataContext.Provider value={{ modules, notifications, rooms, loading, reloadData: loadData, updateModule, addModule, addRoom, deleteModule }}>
             {children}
         </DataContext.Provider>
     );

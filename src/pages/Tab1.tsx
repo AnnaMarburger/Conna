@@ -10,8 +10,8 @@ const Tab1: React.FC = () => {
   return (
     <IonPage className='m-standard'>
       <IonContent fullscreen>
-        <p className='text-header mt-xl mb-small'> Hello, Anna! 👋 </p>
-        <p className='text-label no-margin'> Welcome to Home </p>
+        <p className='text-header mt-xl mb-small'> Hello! 👋 </p>
+        <p className='text-label no-margin'> Welcome to your custom Smart Home System</p>
           <ModuleBubbles/>
           <NotifSection />
       </IonContent>

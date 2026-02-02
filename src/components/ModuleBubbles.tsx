@@ -8,7 +8,7 @@ import { useData } from "../context/DataContext";
 
 const ModuleBubbles: React.FC = () => {
     const [selectedModule, setSelectedModule] = useState<Module | null>(null);
-    const { modules, updateModule, addModule, loading } = useData();
+    const { modules, updateModule, addModule, deleteModule, loading } = useData();
     const [showPopover, setShowPopover] = useState(false);
     const [newModuleId, setNewModuleId] = useState("");
 
@@ -86,9 +86,9 @@ const ModuleBubbles: React.FC = () => {
                     </IonRow>
                 </IonGrid>
 
-                <ModuleModal isOpen={!!selectedModule}
+                <ModuleModal isOpen={selectedModule != null}
                     onDidDismiss={() => setSelectedModule(null)}
-                    moduleData={selectedModule} onSave={saveUpdatedModule}
+                    moduleData={selectedModule} onSave={saveUpdatedModule} onDelete={deleteModule}
                 />
 
             </IonCardContent>
