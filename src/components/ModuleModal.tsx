@@ -10,7 +10,7 @@ interface ModuleModalProps {
   isOpen: boolean;
   onDidDismiss: () => void;
   onSave: (updatedModule: Module) => void;
-  onDelete: (id: String) => void;
+  onDelete: (id: string) => void;
   moduleData: Module | null;
 }
 
@@ -41,7 +41,7 @@ const ModuleModal: React.FC<ModuleModalProps> = ({ isOpen, moduleData, onDidDism
     onDidDismiss();
   };
 
-  const handleDelete = (id: String) => {
+  const handleDelete = (id: string) => {
     onDelete(id);
     onDidDismiss();
   }

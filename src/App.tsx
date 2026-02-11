@@ -9,7 +9,7 @@ import {
   setupIonicReact
 } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
-import { homeOutline, mapOutline, settingsOutline } from 'ionicons/icons';
+import { help, homeOutline, mapOutline, settingsOutline } from 'ionicons/icons';
 import Tab1 from './pages/Tab1';
 import Tab2 from './pages/Tab2';
 import Tab3 from './pages/Tab3';
@@ -66,7 +66,7 @@ const App: React.FC = () => (
             <IonIcon aria-hidden="true" icon={mapOutline} />
           </IonTabButton>
           <IonTabButton tab="tab3" href="/settings">
-            <IonIcon aria-hidden="true" icon={settingsOutline} />
+            <IonIcon aria-hidden="true" icon={help} />
           </IonTabButton>
         </IonTabBar>
       </IonTabs>

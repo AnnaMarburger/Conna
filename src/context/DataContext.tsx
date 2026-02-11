@@ -9,7 +9,9 @@ type DataContextType = {
     updateModule: (updated: Module) => Promise<void>;
     addModule: (added: Module) => Promise<void>;
     addRoom: (name: string) => Promise<void>;
-    deleteModule: (id: String) => Promise<void>;
+    deleteModule: (id: string) => Promise<void>;
+    deleteRoom: (name: string) => Promise<void>;
+
 
 }
 
@@ -22,7 +24,9 @@ const DataContext = createContext<DataContextType>({
     updateModule: async () => { },
     addModule: async () => { },
     addRoom: async () => { },
-    deleteModule: async () => { }
+    deleteModule: async () => { },
+    deleteRoom: async () => { }
+
 });
 
 
@@ -90,18 +94,55 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({ children
         console.log("Added Module in Data Context", newMod, res);
     };
 
-    const deleteModule = async (id: String) => {    
-        const idx = modules.findIndex((mod) => mod.id === id);
-        if (idx === -1) return;
-        setModules((prev) => prev.filter((mod) => mod.id !== id));
+    const deleteModule = async (id: string) => {
+        try {
+            const idx = modules.findIndex((mod) => mod.id === id);
+            if (idx === -1) return;
 
-        const res = await fetch(`${API_BASE_URL}/api/modules`, {
-            method: "DELETE",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(id),
-        });
-        console.log("Deleted Module in Data Context", id, res);
+            const res = await fetch(`${API_BASE_URL}/api/modules/${encodeURIComponent(id)}`, {
+                method: "DELETE",
+                headers: {
+                    "Accept": "application/json",
+                },
+            });
+
+            if (!res.ok) {
+                throw new Error(`Delete failed: ${res.status}`);
+            }
+
+            const data = await res.json().catch(() => null);
+            console.log("Deleted Module", id, data);
+            loadData();
+
+        } catch (err) {
+            console.error("Delete module failed", err);
+        }
     };
+
+    const deleteRoom = async (name: string) => {
+        try {
+            const idx = rooms.findIndex((r) => r.name === name);
+            if (idx === -1) return;
+
+            const res = await fetch(`${API_BASE_URL}/api/rooms/${encodeURIComponent(name)}`, {
+                method: "DELETE",
+                headers: {
+                    "Accept": "application/json",
+                },
+            });
+
+            if (!res.ok) {
+                throw new Error(`Delete failed: ${res.status}`);
+            }
+
+            const data = await res.json().catch(() => null);
+            console.log("Deleted Room", name, data);
+            loadData();
+
+        } catch (err) {
+            console.error("Delete room failed", err);
+        }
+    }
 
 
     const addRoom = async (newRoomName: string) => {
@@ -122,7 +163,7 @@ export const DataProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }, []);
 
     return (
-        <DataContext.Provider value={{ modules, notifications, rooms, loading, reloadData: loadData, updateModule, addModule, addRoom, deleteModule }}>
+        <DataContext.Provider value={{ modules, notifications, rooms, loading, reloadData: loadData, updateModule, addModule, addRoom, deleteModule, deleteRoom }}>
             {children}
         </DataContext.Provider>
     );

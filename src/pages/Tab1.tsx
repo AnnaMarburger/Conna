@@ -11,7 +11,7 @@ const Tab1: React.FC = () => {
     <IonPage className='m-standard'>
       <IonContent fullscreen>
         <p className='text-header mt-xl mb-small'> Hello! 👋 </p>
-        <p className='text-label no-margin'> Welcome to your custom Smart Home System</p>
+        <p className='text-label no-margin'> Welcome to your custom Smart Home System. Start by adding a new module by it's ID!</p>
           <ModuleBubbles/>
           <NotifSection />
       </IonContent>

@@ -1,4 +1,4 @@
-import { IonButton, IonCard, IonCardContent, IonCol, IonGrid, IonInput, IonPopover, IonRow } from "@ionic/react";
+import { IonButton, IonCard, IonCardContent, IonCol, IonGrid, IonInput, IonPopover, IonRow, IonToast } from "@ionic/react";
 import { useState } from "react";
 import ModuleModal from "./ModuleModal";
 
@@ -10,6 +10,7 @@ const ModuleBubbles: React.FC = () => {
     const [selectedModule, setSelectedModule] = useState<Module | null>(null);
     const { modules, updateModule, addModule, deleteModule, loading } = useData();
     const [showPopover, setShowPopover] = useState(false);
+    const [showToast, setShowToast] = useState(false);
     const [newModuleId, setNewModuleId] = useState("");
 
     const handleAddModuleClick = () => {
@@ -35,15 +36,20 @@ const ModuleBubbles: React.FC = () => {
         await updateModule(updatedMod);
     }
 
+    const handleDeleteModule = async (id: string) => {
+        await deleteModule(id);
+        setShowToast(true);
+    }
+
     if (loading) {
         return (
-        <IonCard className="module-bubbles-card ion-no-margin mt-standard" >
-            <IonCardContent className="sectioncard-padding">
-                <p className="text-section">Your Modules</p>
+            <IonCard className="module-bubbles-card ion-no-margin mt-standard" >
+                <IonCardContent className="sectioncard-padding">
+                    <p className="text-section">Your Modules</p>
 
-                <p className="text-label">Loading…</p>;
-            </IonCardContent>
-        </IonCard>)
+                    <p className="text-label">Loading…</p>;
+                </IonCardContent>
+            </IonCard>)
     }
 
 
@@ -88,8 +94,14 @@ const ModuleBubbles: React.FC = () => {
 
                 <ModuleModal isOpen={selectedModule != null}
                     onDidDismiss={() => setSelectedModule(null)}
-                    moduleData={selectedModule} onSave={saveUpdatedModule} onDelete={deleteModule}
+                    moduleData={selectedModule} onSave={saveUpdatedModule} onDelete={handleDeleteModule}
                 />
+                <IonToast
+                    isOpen={showToast}
+                    message="Your module has been deleted."
+                    onDidDismiss={() => setShowToast(false)}
+                    duration={5000}
+                ></IonToast>
 
             </IonCardContent>
         </IonCard>

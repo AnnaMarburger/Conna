@@ -1,5 +1,5 @@
 import { IonButton, IonContent, IonIcon, IonItem, IonLabel, IonList, IonPage, IonToolbar, useIonRouter } from '@ionic/react';
-import { chevronBack } from 'ionicons/icons';
+import { chevronBack, trashBin } from 'ionicons/icons';
 import { useParams } from 'react-router';
 import { useEffect, useState } from 'react';
 import ModuleModal from '../components/ModuleModal';
@@ -14,7 +14,7 @@ interface RouteParams {
 
 const RoomPage: React.FC = () => {
     const { roomName } = useParams<RouteParams>();
-    const { modules, updateModule, loading } = useData();
+    const { modules, updateModule, loading, deleteModule, deleteRoom } = useData();
     const [selectedModule, setSelectedModule] = useState<Module | null>(null);
     const router = useIonRouter();
 
@@ -41,6 +41,9 @@ const RoomPage: React.FC = () => {
                 <IonToolbar className='ion-no-padding mt-large mb-standard' onClick={handleRoutingBack}>
                     <IonIcon icon={chevronBack} slot='start' />
                     <p className='no-margin text-section pl-small'>{roomName}</p>
+                    <IonButton className="delete-modal"  slot="end" shape="round" onClick={() => deleteRoom(roomName)}>
+                        <IonIcon icon={trashBin} color="danger" />
+                    </IonButton>
                 </IonToolbar>
                 <IonList className='ion-no-padding'>
                     {roomModules.map((mod, idx) => (
@@ -59,7 +62,7 @@ const RoomPage: React.FC = () => {
                 <ModuleModal
                     isOpen={!!selectedModule}
                     onDidDismiss={() => setSelectedModule(null)}
-                    moduleData={selectedModule} onSave={handleSave} />
+                    moduleData={selectedModule} onSave={handleSave} onDelete={deleteRoom} />
             </IonContent>
         </IonPage>
     );
